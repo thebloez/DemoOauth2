@@ -47,12 +47,12 @@ public class AuthController {
     public ResponseEntity<?> authenticateResponse(@Valid @RequestBody LoginRequest request){
         Authentication auth = authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(
-                  request.getUsername(),
+                  request.getEmail(),
                   request.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String token = tokenProvider.createToken();
+        String token = tokenProvider.createToken(auth);
         return ResponseEntity.ok().body(token);
     }
 

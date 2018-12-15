@@ -21,7 +21,7 @@ public class UserController {
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal){
         return userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-        // to be continued here........
+
     }
 
 }

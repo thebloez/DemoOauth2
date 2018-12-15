@@ -32,13 +32,14 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
         if (oAuth2AuthorizationRequest == null) {
-            CookieUtils.deleteCookies(request,response,OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
-            CookieUtils.deleteCookies(request,response,REDIRECT_URI_PARAM_COOKIE_NAME);
+            CookieUtils.deleteCookie(request,response,OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+            CookieUtils.deleteCookie(request,response,REDIRECT_URI_PARAM_COOKIE_NAME);
             return;
         }
 
         CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
                 CookieUtils.serialize(oAuth2AuthorizationRequest), cookieExpiredSeconds);
+
         String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
         if (StringUtils.isNotBlank(redirectUriAfterLogin)){
             CookieUtils.addCookie(response,
